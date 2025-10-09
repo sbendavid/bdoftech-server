@@ -12,11 +12,11 @@ const logger = winston.createLogger({
     label({ label: "ERROR" }),
     timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
     format.errors({ stack: true }),
-    myFormat,
+    myFormat
   ),
   transports: [
-    new winston.transports.File({ filename: "log/error.log", level: "error" }),
-    new winston.transports.File({ filename: "log/all.log" }),
+    // new winston.transports.File({ filename: "log/error.log", level: "error" }),
+    // new winston.transports.File({ filename: "log/all.log" }),
 
     new winston.transports.Console({
       level: "error",
@@ -27,7 +27,7 @@ const logger = winston.createLogger({
 
 if (CONFIG.ENV.NODE_ENV !== "production") {
   logger.add(
-    new winston.transports.File({ filename: "log/error.log", level: "error" }),
+    new winston.transports.File({ filename: "log/error.log", level: "error" })
   );
   logger.add(new winston.transports.File({ filename: "log/all.log" }));
 }
@@ -36,14 +36,14 @@ logger.exceptions.handle(
   new winston.transports.Console(),
   ...(CONFIG.ENV.NODE_ENV !== "production"
     ? [new winston.transports.File({ filename: "log/exceptions.log" })]
-    : []),
+    : [])
 );
 
 logger.rejections.handle(
   new winston.transports.Console(),
   ...(CONFIG.ENV.NODE_ENV !== "production"
     ? [new winston.transports.File({ filename: "log/rejections.log" })]
-    : []),
+    : [])
 );
 
 export default logger;
