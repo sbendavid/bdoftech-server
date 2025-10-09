@@ -1,15 +1,15 @@
 import type { NextFunction, Request, Response } from "express";
 import statusCodes from "../constants/statusCodes";
-import logger from "../utils/logger";
+// import logger from "../utils/logger";
 import type HttpException from "./httpException";
 
 export const errorMiddleware = (
   err: HttpException,
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
-  logger.error(err.message, { stack: err.stack });
+  // logger.error(err.message, { stack: err.stack });
   //   console.error(err.stack);
   {
     const statusCode = err.status || statusCodes.INTERNAL_SERVER_ERROR;
