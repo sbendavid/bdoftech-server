@@ -2,10 +2,12 @@
   "name": "bdoftech-server",
   "version": "1.0.0",
   "description": "Backend or Server part of the BDofTech",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "build": "rimraf dist && tsc -p tsconfig.json",
-    "start": "node dist/index.js",
+    "start": "nodemon src/index.ts",
+    "build": "rimraf dist && tsc",
+    "ts.check": "tsc --project tsconfig.json",
+    "add-build": "git add dist",
     "dev": "nodemon src/index.ts",
     "biome": "npx @biomejs/biome check --write",
     "lint": "npx @biomejs/biome lint --write",
@@ -35,6 +37,8 @@
     "helmet": "^8.1.0",
     "mongoose": "^8.19.1",
     "morgan": "^1.10.1",
+    "pre-commit": "^1.2.2",
+    "rimraf": "^6.0.1",
     "serverless-http": "^4.0.0",
     "winston": "^3.18.3"
   },
@@ -49,5 +53,10 @@
     "nodemon": "^3.1.10",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.9.3"
-  }
+  },
+  "pre-commit": [
+    "ts.check",
+    "build",
+    "add-build"
+  ]
 }
