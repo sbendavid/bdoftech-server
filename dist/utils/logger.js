@@ -45,8 +45,8 @@ const myFormat = printf(({ timestamp, level, message, label }) => {
 const logger = winston_1.default.createLogger({
     format: combine(label({ label: "ERROR" }), timestamp({ format: "YYYY-MM-DD HH:mm:ss" }), winston_1.format.errors({ stack: true }), myFormat),
     transports: [
-        new winston_1.default.transports.File({ filename: "log/error.log", level: "error" }),
-        new winston_1.default.transports.File({ filename: "log/all.log" }),
+        // new winston.transports.File({ filename: "log/error.log", level: "error" }),
+        // new winston.transports.File({ filename: "log/all.log" }),
         new winston_1.default.transports.Console({
             level: "error",
             format: winston_1.format.combine(winston_1.format.colorize(), winston_1.format.simple()),
