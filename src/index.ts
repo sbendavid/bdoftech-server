@@ -2,13 +2,14 @@ import cors from "cors";
 import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
-import CONFIG from "./config/config";
-import connectDB from "./config/db";
-import { errorMiddleware } from "./exceptions/errors";
-import routes from "./routes/index";
+
+// import CONFIG from "./config/config";
+// import connectDB from "./config/db";
+// import { errorMiddleware } from "./exceptions/errors";
+// import routes from "./routes/index";
 
 const app = express();
-const PORT = CONFIG.ENV.PORT;
+// const PORT = CONFIG.ENV.PORT;
 
 app.use(helmet());
 app.use(
@@ -20,16 +21,16 @@ app.use(
 app.use(morgan("dev"));
 app.use(express.json());
 
-connectDB();
+// connectDB();
 
 app.get("/", (_req, res) => {
   res.send("API is running...");
 });
 
-app.use("/api/v1", routes);
+// app.use("/api/v1", routes);
 
-app.use(errorMiddleware);
+// app.use(errorMiddleware);
 
-app.listen(PORT, () => {
-  console.log(`Server running locally at http://localhost:${PORT}`);
+app.listen(5007, () => {
+  console.log(`Server running locally at http://localhost:${5007}`);
 });
