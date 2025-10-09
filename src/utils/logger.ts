@@ -1,4 +1,5 @@
 import winston, { format } from "winston";
+import CONFIG from "../config/config";
 
 const { combine, printf, timestamp, label } = format;
 
@@ -24,14 +25,25 @@ const logger = winston.createLogger({
   ],
 });
 
-// Ensure unhandled exceptions and rejections are also logged
+if (CONFIG.ENV.NODE_ENV !== "production") {
+  logger.add(
+    new winston.transports.File({ filename: "log/error.log", level: "error" }),
+  );
+  logger.add(new winston.transports.File({ filename: "log/all.log" }));
+}
+
 logger.exceptions.handle(
-  new winston.transports.File({ filename: "log/all.log" }),
   new winston.transports.Console(),
+  ...(CONFIG.ENV.NODE_ENV !== "production"
+    ? [new winston.transports.File({ filename: "log/exceptions.log" })]
+    : []),
 );
+
 logger.rejections.handle(
-  new winston.transports.File({ filename: "log/all.log" }),
   new winston.transports.Console(),
+  ...(CONFIG.ENV.NODE_ENV !== "production"
+    ? [new winston.transports.File({ filename: "log/rejections.log" })]
+    : []),
 );
 
 export default logger;
